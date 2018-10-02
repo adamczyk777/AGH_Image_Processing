@@ -1,0 +1,6 @@
+%% iminfo
+imfinfo('lena.bmp')
+imfinfo('lena.jpg')
+
+%% read images
+lena_bmp = 
