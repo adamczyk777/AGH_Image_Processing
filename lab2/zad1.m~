@@ -1,0 +1,52 @@
+%% Preparation
+clearvars;
+close all;
+clc;
+
+%% otwieranie obrazu
+parrot = imread('parrot.bmp');
+clock = imread('clock.bmp');
+lena = imread('lena.bmp');
+chessboard = imread('chessboard.bmp');
+
+figure(1)
+imshow(parrot)
+
+%% wartosc rescale
+image = parrot;
+
+xReScale = 1.5;
+yReScale = 1.5;
+
+[YY, XX] = size(image);
+
+%% rescaling image using neighbor method
+nYY = round(YY * yReScale);
+nXX = round(XX * xReScale);
+
+nI = uint8(zeros(nYY, nXX));
+
+yStep = YY/nYY;
+xStep = XX/nXX;
+
+% rescaling loop
+for ii = 0:nYY-1
+    for jj = 0:nXX - 1
+        iy = round(ii * yStep);
+        ix = round(jj * xStep);
+        
+        % out of bounds secure
+        if(iy > YY - 1)
+            iy = YY - 1;
+        end
+        if(ix > XX - 1)
+            ix = XX - 1;
+        end
+        
+        nI(ii + 1, jj + 1) = image(iy + 1, ix + 1);
+    end
+end
+
+% showing images
+figure(2);
+imshow(nI);
