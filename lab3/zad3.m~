@@ -1,0 +1,12 @@
+%% Preparation
+clearvars;
+close all;
+clc;
+
+%% Read images
+
+kolo = imread('kolo.bmp');
+kwadrat = imread('kwadrat.bmp');
+
+%% boolean
+ko
