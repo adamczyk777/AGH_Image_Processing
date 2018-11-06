@@ -1,0 +1,29 @@
+% Jakub Adamczyk
+% Homework
+%% Clearing workspace
+clearvars;
+close all;
+clc;
+
+image = imread('jezioro.bmp');
+
+%% Task BBHE
+lmBBHE = round(image(:));
+
+% divide hists
+
+[H, x] = imhist(image);
+H1 = H(1:lmBBHE - 1);
+H2 = H(lmBBHE: 256);
+
+% normalization
+
+H1 = H1/sum(H1);
+H2 = H2/sum(H2);
+
+% cumulated H1 H2
+
+
+
+
+
