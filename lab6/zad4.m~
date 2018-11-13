@@ -1,0 +1,27 @@
+% Jakub Adamczyk
+%% Preparation
+clear;
+clc;
+close all;
+
+load('maskiPP.mat');
+
+%% imread
+
+kw = imread('kw.bmp');
+
+
+%% detecting edges with masks
+
+gradients(kw, R1);
+
+gradients(kw, R2);
+
+gradients(kw, P1);
+
+gradients(kw, P2);
+
+gradients(kw, S1);
+
+gradients(kw, S2);
+

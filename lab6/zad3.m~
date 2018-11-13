@@ -1,0 +1,20 @@
+% Jakub Adamczyk
+%% Preparation
+clear;
+clc;
+close all;
+
+%% imread
+moon = imread('moon.bmp');
+
+%% Laplacian
+laplaciFilter = fspecial('laplacian');
+M = [ 0 1 0; 1 -4 1; 0 1 0] / 9;
+
+convoluted = uint8(conv2(moon, laplacianFilter, 'same'));
+
+figure;
+subplot(1,2,1);
+imshow(c
+
+subplot(1,2,1);
