@@ -106,13 +106,13 @@ subplot(4,4,3); imshow(histeq(hist2));
 title('histeq treated');
 subplot(4,4,4); imshow(adapthisteq(hist2)); 
 title('adapthisteq treated');
-
+%%
 % hist3 image
 subplot(4,4,5); imshow(hist3); 
 subplot(4,4,6); imshow(imadjust(hist3)); 
 subplot(4,4,7); imshow(histeq(hist3)); 
 subplot(4,4,8); imshow(adapthisteq(hist3)); 
-
+%%
 % hist4 image
 subplot(4,4,9); imshow(hist4);
 subplot(4,4,10); imshow(imadjust(hist4)); 
