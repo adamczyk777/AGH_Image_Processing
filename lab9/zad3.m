@@ -8,12 +8,13 @@ close all;
 kwadraty = imread('kwadraty.png');
 image = kwadraty;
 
-edges = edge(image, 'canny');
+edges = edge(image, 'sobel');
 
 [H, T, R] = hough(edges);
 
 figure;
 imshow(H, []);
+
 P = houghpeaks(H, 8);
 hold on;
 plot(P, 'o');
@@ -37,3 +38,5 @@ for k = 1:length(lines)
    end
 end
 
+% highlight the longest line segment
+plot(xy_long(:,1),xy_long(:,2),'LineWidth',2,'Color','cyan');

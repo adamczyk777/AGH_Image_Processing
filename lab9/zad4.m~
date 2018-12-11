@@ -13,23 +13,19 @@ image = lab112;
 %% Task
 
 figure;
-
-% binarise
-image = im2bw(image, 37/255);
-
-% czyszczenie krawedzi
-image = not(image);
-image = imclearborder(image);
-image = not(image);
-
-% delete vertical lines
-square = strel('square', 5);
-image = imclose(image, square);
-
 imshow(image);
 
-% krawedzie
-edges = edge(image, 'canny');
+T = 40;
+image(image < T) = 0;
+image(image > T) = 255;
+
+% delete vertical lines
+
+square = strel('square', 5);
+
+image = imclose(image, square);
+
+edges = edge(image, 'sobel');
 
 [H, T, R] = hough(edges);
 
