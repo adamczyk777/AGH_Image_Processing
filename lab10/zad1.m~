@@ -1,0 +1,42 @@
+% Jakub Adamczyk
+%% Preparation
+clear;
+clc;
+close all;
+
+%% images
+
+knee = imread('knee.png');
+image = knee;
+
+%% Task
+
+figure;
+imshow(image);
+[x, y, z] = ginput(1);
+x = floor(x);
+y = floor(y);
+z = floor(z);
+
+[xImage, yImage] = size(image);
+
+visited = zeros(xImage, yImage);
+segmented = zeros(xImage, yImage);
+stack = zeros(10000, 2);
+iStack = 1;
+
+visited(x, y) = 1;
+segmented(x, y) = 1;
+stack(iStack, 1:2) = [x, y];
+
+while iStack > 0
+   for i=1:3
+      for j=1:3
+          
+   end
+end
+
+
+
+
+
