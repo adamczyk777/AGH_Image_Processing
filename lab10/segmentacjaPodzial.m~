@@ -1,0 +1,100 @@
+% Jakub Adamczyk
+%% Preparation
+clear;
+clc;
+close all;
+
+%% Global variables
+global sLimit vLimit MRes segRes index;
+
+%% Images
+
+umbrella = imread('umbrella.png');
+image = umbrella;
+
+%% Parameters
+
+colorThreshold = 5/255;
+minAreaSize = 33;
+
+%% Task
+figure;
+imshow(image, []);
+title('original image');
+ 
+imageHSV = rgb2hsv(double(image));
+
+figure;
+imshow(imageHSV(:,:,1), []);
+title('H vector');
+
+%% Globals initialization
+sLimit = 8;
+vLimit = 0.05;
+index = -1;
+
+[y, x] = size(imageHSV(:,:,1));
+
+segRes = zeros(y, x);
+MRes = zeros(y, x);
+
+figure;
+imshow(segRes,[]);
+
+figure;
+imshow(MRes,[]);
+
+split(imageHSV(:,:,1), 1, 1, x, y);
+
+%% Loop
+i = 0;
+while i <= index
+   IB = segRes == i;
+   
+   if any(IB(:))
+       [yF, xF] = find(IB, 1, 'first');
+       square = strel('square', 3);
+       neighbors = imdilate(IB, square);
+       diff = imabsdiff(neighbors,IB);
+       pointMult = diff.*segRes;
+       nonZeros = nonzeros(pointMult);
+       uniqued = unique(nonZeros);
+       isJoined = 0;
+       for neighbor = 1:numel(uniqued)
+           IBS = segRes == uniqued(neighbor);
+            [yFS, xFS] = find(IBS, 1, 'first');
+            colorDiff = abs(MRes(yF,xF) - MRes(yFS, xFS));
+            if colorDiff < colorThreshold
+                segRes(IBS) = i;
+                isJoined = 1;
+            end
+       end
+   else
+       i = i + 1;
+   end
+end
+
+figure;
+imshow(segRes,[]);
+
+U = unique(segRes);
+
+for idx = 1:numel(U)
+    C = segRes == U(idx);
+    if sum(C) < minAreaSize
+       segRes(C) = 0; 
+    end
+    segRes(C) = idx;
+end
+
+U = unique(segRes);
+
+for idx = 1:numel(U)
+    C = segRes == U(idx);
+    segRes(C) = idx;
+end
+
+finalImage = label2rgb(segRes);
+
+figure;
+imshow(finalImage);
