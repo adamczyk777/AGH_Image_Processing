@@ -3,8 +3,6 @@ function image = indexate(originalImage)
     image = originalImage;
 
     [height, width] = size(originalImage);
-
-    % label
     L = 1;
 
     for y = 2 : (height-1)

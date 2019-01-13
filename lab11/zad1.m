@@ -5,9 +5,9 @@ clc;
 close all;
 
 %% Read Images
-image = imread('ccl1.png');
+image = imread('images/ccl1.png');
 
-%% Excercise
+%% Indexation
 
 indexated = indexate(image);
 
