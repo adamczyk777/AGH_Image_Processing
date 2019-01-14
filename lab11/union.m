@@ -1,7 +1,16 @@
-function [outputArg1,outputArg2] = union(inputArg1,inputArg2)
-%UNION Summary of this function goes here
+function modifiedArray = union(p, q, array)
+%ROOT Summary of this function goes here
 %   Detailed explanation goes here
-outputArg1 = inputArg1;
-outputArg2 = inputArg2;
+modifiedArray = array;
+
+startId = p;
+endId = q;
+
+if startId > endId
+    startId = q;
+    endId = p;
+end
+
+modifiedArray(rootIndex(startId, array)) = rootIndex(endId, array);
 end
 

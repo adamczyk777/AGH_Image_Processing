@@ -10,7 +10,7 @@ image = imread('images/shapes.png');
 %% Image Detection
 labeled = bwlabel(image, 8);
 
-coefficients = obliczWspolczynniki(labeled);
+coefs = obliczWspolczynniki(labeled);
 
 r = regionprops(labeled, 'Centroid');
 for i=1:length(r)
@@ -21,9 +21,9 @@ end
 
 for y=1:height
     for x=1:width
-        pixel = labeled(y,x); % obliczanie srodlka ciezkosci
-        if (pixel ~= 0 && ~(wsp(pixel, 2) > 0.33 && wsp(pixel, 2) < 0.66))
-            labeled(i,j) = 0;
+        pixel = labeled(y,x); % obliczanie srodka ciezkosci
+        if (pixel ~= 0 && ~(coefs(pixel, 2) > 0.33 && coefs(pixel, 2) < 0.66))
+            labeled(y,x) = 0;
         end
     end
 end

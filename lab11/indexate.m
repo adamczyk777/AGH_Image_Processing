@@ -4,6 +4,9 @@ function image = indexate(originalImage)
 
     [height, width] = size(originalImage);
     L = 1;
+    N = 100;
+    id = 1:N;
+    lut = zeros(N);
 
     for y = 2 : (height-1)
         for x = 2 : (width-1)
@@ -21,10 +24,36 @@ function image = indexate(originalImage)
                         image(y, x) = min_;
                     else
                         image(y, x) = min_;
+                        minNeighbors = nonzero(nonzero~=min_);
+                        minimalNeighbor = min(minNeighbors);
+
+                        id = union(min_, minimalNeighbor, id);
                     end
                 end 
             end
         end
     end
-end
 
+    imCopy = image;
+
+    for i = 1:N
+        lut(i) = rootIndex(i, id);
+    end
+    
+    for y = 2:(height-1)
+        for x = 2:(width-1)
+           if (image(y,x) > 0)
+             image(y,x) = lut(imCopy(y,x));
+           end
+        end
+     end
+     
+     figure;
+     subplot(1,2,1);
+     imshow(imCopy, []);
+     title('before lut op');
+     subplot(1,2,2);
+     imshow(image, []);
+     title('after lut op');
+
+end
