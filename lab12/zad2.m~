@@ -20,13 +20,14 @@ Hd(r>0.1) = 0;
 colormap(jet(64));
 mesh(f1, f2, Hd);
 
-
+Hd = fft2(Hd);
+Hd = fftshift(Hd);
 filtered = shifted .* Hd;
 filtered = ifftshift(filtered);
-filtered = ifft2(filtered);
+filtered = ifft2(filtered
 
 figure;
-imshow(uint8(filtered));
+imshow(filtered);
 title('Filtered image');
 
 % 2d filter creation
@@ -34,11 +35,6 @@ h = fwind1(Hd, hanning(21));
 
 [H, f1, f2] = freqz2(h, 512, 512);
 mesh(f1, f2, H);
-
-filtered2 = shifted .* H;
-filtered2 = uint8(ifft2(ifftshift(filtered2)));
-figure;
-imshow(filtered2);
 
 %% Gaussian Filter
 [width, height] = size(image);
@@ -54,10 +50,12 @@ imshow(mask);
 % filtrowanie
 fouriered = fft2(image);
 shifted = fftshift(fouriered);
-filtered3 = shifted .* mask;
+maskfft = fft2(mask);
+maskshift = fftshift(maskfft);
+filtered = shifted .* maskshift;
 
 % odwracanie fouriera
-filtered3 = uint8(ifft2(ifftshift(filtered3)));
+filtered = ifft2(filtered);
 
 figure;
-imshow(filtered3);
+imshow(filtered);

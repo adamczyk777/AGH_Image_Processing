@@ -27,7 +27,7 @@ title('phase');
 
 %% correction
 th = 10;
-fourier(amplitude >= th) = 0;
+shifted(amplitude >= th) = 0;
 
 %% reverting
 unshifted = ifftshift(shifted);
@@ -38,5 +38,5 @@ subplot(1,2,1);
 imshow(image);
 title('original');
 subplot(1,2,2);
-imshow(unfourier);
+imshow(uint8(unfourier));
 title('undone');
